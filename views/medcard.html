@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цифровая медкарта бойца - Медицинская карта</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                Цифровая медкарта бойца
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="soldiers.html">
+                            <i class="bi bi-people"></i> Военнослужащие
+                        </a>
+                    </li>
+                </ul>
+                <div class="navbar-nav ms-auto d-flex align-items-center">
+                    <div class="nav-item me-3">
+                        <span class="nav-link text-light d-flex align-items-center">
+                            <i class="bi bi-person-circle me-2"></i>
+                            <span id="userInfo"></span>
+                        </span>
+                    </div>
+                    <button class="btn btn-outline-light" id="logoutBtn">
+                        <i class="bi bi-box-arrow-right me-1"></i> Выход
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
+        <div class="card profile-card shadow-sm animate__animated animate__fadeIn mb-4">
+            <div class="profile-header">
+                <div class="d-flex align-items-center mb-2">
+                    <a href="soldiers.html" class="back-button me-3">
+                        <i class="bi bi-arrow-left"></i> Назад
+                    </a>
+                    <h4 class="mb-0" id="soldierName">Загрузка данных...</h4>
+                </div>
+            </div>
+                    <div class="card-body patient-info">
+            <div class="row">
+                <div class="col-md-3 text-center mb-4 mb-md-0">
+                    <img src="/img/profile-placeholder.png" id="profilePhoto" class="profile-photo mb-3" alt="Фото военнослужащего">
+                </div>
+                <div class="col-md-9">
+                    <!-- Основная информация -->
+                    <div class="info-section">
+                        <h6 class="section-title">Личные данные</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-row">
+                                    <div class="info-label">Личный номер</div>
+                                    <div class="info-value" id="personalNumber"></div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Дата рождения</div>
+                                    <div class="info-value" id="birthDate"></div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-row">
+                                    <div class="info-label">Подразделение</div>
+                                    <div class="info-value" id="unit"></div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Звание</div>
+                                    <div class="info-value" id="rank"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Медицинская информация -->
+                    <div class="info-section">
+                        <h6 class="section-title">Медицинские данные</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-row">
+                                    <div class="info-label">Группа крови</div>
+                                    <div class="info-value" id="bloodType"></div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Рост/вес/ИМТ</div>
+                                    <div class="info-value" id="heightWeight"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-row">
+                                    <div class="info-label">Категория годности</div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="info-value" id="fitnessCategory"></div>
+                                            <button class="btn btn-sm btn-outline-primary" id="editFitnessBtn">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                <div class="info-row">
+                                    <div class="info-label">Дата последнего осмотра</div>
+                                    <div class="info-value" id="lastExam"></div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Статус здоровья</div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                                <div class="info-value" id="healthStatus"></div>
+                                                    <button class="btn btn-sm btn-outline-primary" id="editHealthBtn">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Экстренный контакт -->
+                    <div class="info-section emergency-section">
+                        <h6 class="section-title">Экстренный контакт</h6>
+                        <div class="info-row">
+                            <div class="info-value" id="emergencyContact"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        <ul class="nav nav-tabs medical-tabs mb-3 animate__animated animate__fadeIn animate__delay-1s" id="medicalTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="conditions-tab" data-bs-toggle="tab" data-bs-target="#conditions-tab-pane" type="button">
+                    <i class="bi bi-activity tab-icon"></i>
+                    <span class="tab-text">Заболевания/травмы</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="allergies-tab" data-bs-toggle="tab" data-bs-target="#allergies-tab-pane" type="button">
+                    <i class="bi bi-exclamation-triangle tab-icon"></i>
+                    <span class="tab-text">Аллергии</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                 <button class="nav-link" id="medications-tab" data-bs-toggle="tab" data-bs-target="#medications-tab-pane" type="button">
+                    <i class="bi bi-bandaid tab-icon"></i>
+                    <span class="tab-text">Лекарства</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vaccinations-tab" data-bs-toggle="tab" data-bs-target="#vaccinations-tab-pane" type="button">
+                    <i class="bi bi-shield-check tab-icon"></i>
+                    <span class="tab-text">Вакцинации</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents-tab-pane" type="button">
+                    <i class="bi bi-file-earmark-text tab-icon"></i>
+                    <span class="tab-text">Документы</span>
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content animate__animated animate__fadeIn animate__delay-1s" id="medicalTabContent">
+            <!-- Заболевания/травмы -->
+            <div class="tab-pane fade show active" id="conditions-tab-pane" role="tabpanel">
+                <button class="btn btn-sm btn-primary add-condition-btn mb-3">
+                    <i class="bi bi-plus-circle"></i> Добавить
+                </button>
+                <div class="card card-medical shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%">Тип</th>
+                                        <th style="width: 25%">Описание</th>
+                                        <th style="width: 15%">Дата начала</th>
+                                        <th style="width: 15%">Дата окончания</th>
+                                        <th style="width: 20%">Врач</th>
+                                        <th style="width: 10%" class="text-center">Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="conditionsTable">
+                                    <tr><td colspan="6" class="text-center py-3">Нет данных</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Аллергии -->
+            <div class="tab-pane fade" id="allergies-tab-pane" role="tabpanel">
+                <button class="btn btn-sm btn-primary add-allergy-btn mb-3">
+                    <i class="bi bi-plus-circle"></i> Добавить
+                </button>
+                <div class="card card-medical shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%">Тип</th>
+                                        <th style="width: 25%">Описание</th>
+                                        <th style="width: 15%">Тяжесть</th>
+                                        <th style="width: 35%">Рекомендации</th>
+                                        <th style="width: 10%" class="text-center">Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="allergiesTable">
+                                    <tr><td colspan="6" class="text-center py-3">Нет данных</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Лекарства -->
+            <div class="tab-pane fade" id="medications-tab-pane" role="tabpanel">
+                <button class="btn btn-sm btn-primary add-medication-btn mb-3">
+                    <i class="bi bi-plus-circle"></i> Добавить
+                </button>
+                <div class="card card-medical shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%">Название</th>
+                                        <th style="width: 10%">Дозировка</th>
+                                        <th style="width: 15%">Частота</th>
+                                        <th style="width: 12%">Начало</th>
+                                        <th style="width: 12%">Окончание</th>
+                                        <th style="width: 15%">Назначил</th>
+                                        <th style="width: 15%">Примечания</th>
+                                        <th style="width: 10%" class="text-center">Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="medicationsTable">
+                                    <tr><td colspan="6" class="text-center py-3">Нет данных</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Вакцинации -->
+            <div class="tab-pane fade" id="vaccinations-tab-pane" role="tabpanel">
+                <button class="btn btn-sm btn-primary add-vaccination-btn mb-3">
+                    <i class="bi bi-plus-circle"></i> Добавить
+                </button>
+                <div class="card card-medical shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%">Вакцина</th>
+                                        <th style="width: 15%">Дата</th>
+                                        <th style="width: 10%">Срок действия</th>
+                                        <th style="width: 15%">Врач</th>
+                                        <th style="width: 15%">Номер партии</th>
+                                        <th style="width: 25%">Примечания</th>
+                                        <th style="width: 10%" class="text-center">Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="vaccinationsTable">
+                                    <tr><td colspan="6" class="text-center py-3">Нет данных</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Документы -->
+            <div class="tab-pane fade" id="documents-tab-pane" role="tabpanel">
+                <button class="btn btn-sm btn-primary add-document-btn mb-3">
+                    <i class="bi bi-plus-circle"></i> Добавить
+                </button>
+                <div class="card card-medical shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%">Тип</th>
+                                        <th style="width: 30%">Название</th>
+                                        <th style="width: 15%">Дата загрузки</th>
+                                        <th style="width: 15%">Загрузил</th>
+                                        <th style="width: 15%">Действия</th>
+                                        <th style="width: 10%" class="text-center">Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="documentsTable">
+                                    <tr><td colspan="6" class="text-center py-3">Нет данных</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Модальное окно для заболеваний/травм -->
+<div class="modal fade" id="conditionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="conditionModalTitle">Добавление заболевания/травмы</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="conditionForm">
+                    <input type="hidden" id="conditionId">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="conditionType" required>
+                            <option value="">Выберите тип</option>
+                            <option value="chronic">Хроническое</option>
+                            <option value="acute">Острое</option>
+                            <option value="injury">Травма</option>
+                        </select>
+                        <label for="conditionType">Тип</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="conditionDescription" placeholder="Описание" style="height: 100px" required></textarea>
+                        <label for="conditionDescription">Описание</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="conditionStartDate" placeholder="Дата начала" required>
+                        <label for="conditionStartDate">Дата начала</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="conditionEndDate" placeholder="Дата окончания">
+                        <label for="conditionEndDate">Дата окончания (если актуально)</label>
+                    </div>
+                    <div class="alert alert-danger d-none" id="conditionError"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" id="saveConditionBtn">
+                    <span class="spinner-border spinner-border-sm d-none" id="conditionSpinner" role="status"></span>
+                    <span id="conditionBtnText">Сохранить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для аллергий -->
+<div class="modal fade" id="allergyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="allergyModalTitle">Добавление аллергии</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="allergyForm">
+                    <input type="hidden" id="allergyId">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="allergyType" required>
+                            <option value="">Выберите тип</option>
+                            <option value="medication">Лекарства</option>
+                            <option value="food">Пищевая</option>
+                            <option value="other">Прочее</option>
+                        </select>
+                        <label for="allergyType">Тип</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="allergyDescription" placeholder="Описание" style="height: 100px" required></textarea>
+                        <label for="allergyDescription">Описание</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="allergySeverity" required>
+                            <option value="">Выберите тяжесть</option>
+                            <option value="low">Низкая</option>
+                            <option value="medium">Средняя</option>
+                            <option value="high">Высокая</option>
+                            <option value="critical">Критическая</option>
+                        </select>
+                        <label for="allergySeverity">Тяжесть</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="allergyRecommendations" placeholder="Рекомендации" style="height: 100px"></textarea>
+                        <label for="allergyRecommendations">Рекомендации</label>
+                    </div>
+                    <div class="alert alert-danger d-none" id="allergyError"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" id="saveAllergyBtn">
+                    <span class="spinner-border spinner-border-sm d-none" id="allergySpinner" role="status"></span>
+                    <span id="allergyBtnText">Сохранить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для лекарств -->
+<div class="modal fade" id="medicationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="medicationModalTitle">Добавление лекарства</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="medicationForm">
+                    <input type="hidden" id="medicationId">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="medicationName" placeholder="Название" required>
+                        <label for="medicationName">Название</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="medicationDosage" placeholder="Дозировка" required>
+                        <label for="medicationDosage">Дозировка</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="medicationFrequency" placeholder="Частота" required>
+                        <label for="medicationFrequency">Частота</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="medicationStartDate" placeholder="Дата начала" required>
+                        <label for="medicationStartDate">Дата начала</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="medicationEndDate" placeholder="Дата окончания">
+                        <label for="medicationEndDate">Дата окончания (если актуально)</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="medicationNotes" placeholder="Примечания" style="height: 100px"></textarea>
+                        <label for="medicationNotes">Примечания</label>
+                    </div>
+                    <div class="alert alert-danger d-none" id="medicationError"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" id="saveMedicationBtn">
+                    <span class="spinner-border spinner-border-sm d-none" id="medicationSpinner" role="status"></span>
+                    <span id="medicationBtnText">Сохранить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для вакцинаций -->
+<div class="modal fade" id="vaccinationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="vaccinationModalTitle">Добавление вакцинации</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="vaccinationForm">
+                    <input type="hidden" id="vaccinationId">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="vaccineName" placeholder="Вакцина" required>
+                        <label for="vaccineName">Вакцина</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="vaccinationDate" placeholder="Дата вакцинации" required>
+                        <label for="vaccinationDate">Дата вакцинации</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="vaccineExpirationDate" placeholder="Срок действия">
+                        <label for="vaccineExpirationDate">Срок действия</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="vaccineBatchNumber" placeholder="Номер партии">
+                        <label for="vaccineBatchNumber">Номер партии</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="vaccineNotes" placeholder="Примечания" style="height: 100px"></textarea>
+                        <label for="vaccineNotes">Примечания</label>
+                    </div>
+                    <div class="alert alert-danger d-none" id="vaccinationError"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" id="saveVaccinationBtn">
+                    <span class="spinner-border spinner-border-sm d-none" id="vaccinationSpinner" role="status"></span>
+                    <span id="vaccinationBtnText">Сохранить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для загрузки документов -->
+<div class="modal fade" id="documentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="documentModalTitle">Загрузка документа</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="documentForm">
+                    <input type="hidden" id="documentId">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="documentType" required>
+                            <option value="">Выберите тип</option>
+                            <option value="Заключение">Заключение</option>
+                            <option value="Выписка">Выписка</option>
+                            <option value="Справка">Справка</option>
+                            <option value="Направление">Направление</option>
+                            <option value="Результат анализа">Результат анализа</option>
+                            <option value="Другое">Другое</option>
+                        </select>
+                        <label for="documentType">Тип документа</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="documentName" placeholder="Название" required>
+                        <label for="documentName">Название документа</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="documentFile" class="form-label">Выберите файл</label>
+                        <input class="form-control" type="file" id="documentFile" required>
+                    </div>
+                    <div class="alert alert-danger d-none" id="documentError"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" id="saveDocumentBtn">
+                    <span class="spinner-border spinner-border-sm d-none" id="documentSpinner" role="status"></span>
+                    <span id="documentBtnText">Загрузить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Модальное окно для обновления категории годности -->
+<div class="modal fade" id="fitnessModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Изменение категории годности</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="fitnessForm">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="fitnessCategorySelect" required>
+                            <option value="">Выберите категорию</option>
+                            <option value="А">А - годен к военной службе</option>
+                            <option value="Б">Б - годен с ограничениями</option>
+                            <option value="В">В - ограниченно годен</option>
+                            <option value="Г">Г - временно не годен</option>
+                            <option value="Д">Д - не годен</option>
+                        </select>
+                        <label for="fitnessCategorySelect">Категория годности</label>
+                    </div>
+                    <div class="alert alert-danger d-none" id="fitnessError"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" id="saveFitnessBtn">
+                    <span class="spinner-border spinner-border-sm d-none" id="fitnessSpinner" role="status"></span>
+                    <span id="fitnessBtnText">Сохранить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для обновления статуса здоровья -->
+<div class="modal fade" id="healthModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Изменение статуса здоровья</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="healthForm">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="healthStatusSelect" required>
+                            <option value="">Выберите статус</option>
+                            <option value="Хорошее">Хорошее</option>
+                            <option value="Удовлетворительное">Удовлетворительное</option>
+                            <option value="Неудовлетворительное">Неудовлетворительное</option>
+                        </select>
+                        <label for="healthStatusSelect">Статус здоровья</label>
+                    </div>
+                    <div class="alert alert-danger d-none" id="healthError"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" id="saveHealthBtn">
+                    <span class="spinner-border spinner-border-sm d-none" id="healthSpinner" role="status"></span>
+                    <span id="healthBtnText">Сохранить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteConfirmText">Вы действительно хотите удалить этот элемент?</p>
+                <input type="hidden" id="deleteItemId">
+                <input type="hidden" id="deleteItemType">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    <span class="spinner-border spinner-border-sm d-none" id="deleteSpinner" role="status"></span>
+                    <span id="deleteBtnText">Удалить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/medcard.js"></script>
+    <style>
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #f8f9fa;
+    color: #0c63e4;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    text-decoration: none !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .back-button i {
+    margin-right: 6px;
+    transition: transform 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #0c63e4;
+    color: white !important;
+    box-shadow: 0 5px 12px rgba(12, 99, 228, 0.25);
+    transform: translateY(-3px);
+    text-decoration: none !important;
+  }
+  
+  .back-button:hover i {
+    transform: translateX(-4px);
+  }
+  
+  .back-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(12, 99, 228, 0.15);
+  }
+  
+  .back-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+    z-index: -1;
+  }
+  
+  .back-button:hover::before {
+    left: 100%;
+  }
+</style>
+</body>
+</html>
