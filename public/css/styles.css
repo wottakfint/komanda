@@ -59,7 +59,7 @@ body {
 
 .form-control, .form-floating>.form-control {
     border-radius: var(--border-radius);
-    border: 1px solid #ced4da;
+    border: 2px solid #ced4da;
     padding: 0.75rem;
     transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
