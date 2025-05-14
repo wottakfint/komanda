@@ -7,10 +7,13 @@ $(document).ready(function() {
     
     const user = JSON.parse(localStorage.getItem('user'));
     $('#userInfo').text(`${user.username} (${user.role})`);
-    
-    // Показать индикатор загрузки
-    $('#loadingIndicator').removeClass('d-none');
-    
+	
+	//.........
+    //.........
+	// Удалил индикатор загрузки
+    //.........
+	//.........
+	
     // Загрузка списка военнослужащих
     loadSoldiers();
     
